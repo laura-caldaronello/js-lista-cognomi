@@ -52,9 +52,9 @@
 // provo a fare l'esercizio con comandi più semplici
 
 var cognomi = ["Bianchi","Rossi","Duzioni","Balsano","Verdi"];
-console.log(cognomi);
 var nuovo = prompt('inserire cognome');
-cognomi.push(nuovo.charAt(0).toUpperCase() + nuovo.slice(1));
-console.log(cognomi);
+nuovo = nuovo.charAt(0).toUpperCase() + nuovo.slice(1);
+cognomi.push(nuovo);
 cognomi.sort();
-console.log(cognomi);
+console.log('lista ordinata alfabeticamente: ' + cognomi);
+console.log('posizione umana nuovo utente: ' + cognomi.indexOf(nuovo) + 1);
