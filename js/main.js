@@ -25,3 +25,33 @@ for (var i = 0; i < prova.length; i++) {
   }
 }
 
+// ora servono delle istruzioni che mettano in ordine in base alla grandezza dei numeri di provaIndexes, quindi il problema si riconduce a riordinare dei numeri dal più piccolo al più grande
+// selezionare il minore
+// var nuovo = [];
+// for (var i = 0; i < provaIndexes.length; i++) {
+//   for (var k = 0; k < provaIndexes.length; k++) {
+//     if (i != k) {
+//       if (provaIndexes[i] > provaIndexes[k]) {
+//         provaIndexes.push(provaIndexes[i]);
+//         console.log(provaIndexes[i]);
+//       }
+//       // else if () {
+
+//       // }
+//     }
+//   }
+// }
+var provaIndexes = [7,18,19,6,4,27,5,3,2,54];
+console.log(provaIndexes);
+for (var k = 0; k < provaIndexes.length; k++) {
+  for (var i = 0; i < provaIndexes.length; i++) {
+    while (provaIndexes[i] > provaIndexes[i + 1]) { /* questo ciclo while è un'operazione che si fa solo sull'elemento i di un array che va a spostarlo subito prima del maggiore successivo. va fatta tante volte quanti sono gli elementi dell'array, per questo il for esterno. il for più esterno di tutti va fatto perchè poi si deve ricominciare col nuovo assetto e ripetere l'algoritmo */
+      var prima = provaIndexes[i];
+      var dopo = provaIndexes[i + 1];
+      provaIndexes[i] = dopo;
+      provaIndexes[i + 1] = prima;
+      i++;
+    }
+  }
+}
+console.log(provaIndexes);
