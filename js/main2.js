@@ -2,10 +2,28 @@
 function order(words) {
 
   // definizione alfabeto e relativi indici
-  var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-  var alphabetIndexes = [];
-  for (var i = 0; i < alphabet.length; i++) {
-    alphabetIndexes.push(i);
+  var alphabet = ["0","1","2","3","4","5","6","7","8","9","A","a","à","B","b","C","c","D","d","E","e","è","é","F","f","G","g","H","h","I","i","ì","J","j","K","k","L","l","M","m","N","n","O","o","ò","P","p","Q","q","R","r","S","s","T","t","U","u","ù","V","v","W","w","X","x","Y","y","Z","z"];
+  var alphabetIndexes = [0];
+  var i = 1;
+  while (i < alphabet.length) {
+    alphabetIndexes[i] = alphabetIndexes[i - 1] + 1;
+    i++;
+    if (parseInt(alphabet[i - 1]) != alphabet[i - 1]) { /* se non ho appena inserito un numero */
+      alphabetIndexes[i] = alphabetIndexes[i - 1]; /* perchè è la minuscola corrispondente */
+      i++; /* e salto un i perchè l'ho appena dato */
+      if (alphabet[i - 1] == "a" ||
+          alphabet[i - 1] == "i" ||
+          alphabet[i - 1] == "o" ||
+          alphabet[i - 1] == "u") { /* è una lettera che in italiano può essere accentata una sola volta*/
+        alphabetIndexes[i] = alphabetIndexes[i - 1];
+        i++; /* e salto un i perchè l'ho appena dato */
+      }
+      else if (alphabet[i - 1] == "e") { /* è una lettera che in italiano può essere accentata due volte*/
+        alphabetIndexes[i] = alphabetIndexes[i - 1];
+        alphabetIndexes[i + 1] = alphabetIndexes[i - 1];
+        i = i + 2; /* e salto due i perchè li ho appena dati */
+      }
+    }
   }
 
   // vettore delle lunghezze delle singole parole in ingresso
@@ -33,11 +51,11 @@ function order(words) {
   // indexes contiene le letters in formato numerico in base all'alfabeto creato
   var indexes = [];
   for (var i = 0; i < letters.length; i++) {
-    for (var k = 0; k < alphabetIndexes.length; k++) {
-      if (letters[i] == alphabet[k]) {
-        indexes.push(k);
-      }
+    var k = 0;
+    while (letters[i] != alphabet[k] && k < alphabetIndexes.length) {
+      k++;
     }
+    indexes[i] = alphabetIndexes[k];
   }
   
   for (var c = 0; c < words.length; c++) {
