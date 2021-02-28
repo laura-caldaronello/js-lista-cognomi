@@ -43,13 +43,23 @@ function order(words) {
   for (var c = 0; c < words.length; c++) {
     var i = 0; /* a quale parola sono arrivata */
     var l = 0; /* prima lettera della parola a cui sono arrivata */
-    var j = 0; /* indice a cui sono arrivata (una lettera della prima parola del confronto) */
+    var j = 0; /* indice a cui sono arrivata (una lettera della parola i) */
     while (i < lengths.length) {
-      var k = lengths[i]; /* lunghezza della parola che si muove */
+      var k = lengths[i]; /* lunghezza della parola che si muove (i) */
+      var bool = false;
       while (indexes[j] == indexes[j + k]) {
-        j++; /* finchè le lettere sono uguali vai avanti */
+        if (j + 1 == l + k && k <= lengths[i + 1]) { /* sono arrivata all'ultima lettera della parola in esame (i), questa è più corta della seconda e la sua ultima lettera è uguale alla corrispondente della parola i + 1 (questa condizione me la dà il while). oppure le parole sono uguali */
+          break; /* non deve succedere nulla (non si entrerà per forza di cose nel ciclo if immediatamente successivo al while) */
+        }
+        else if (j - l == lengths[i + 1] - 1 && k > lengths[i + 1]) { /* sono arrivata all'ultima lettera della parola i + 1 e la seconda parola è più corta (e la sua ultima lettera è uguale alla corrispondente della parola i come da ciclo while) */
+          bool = true;
+          break;
+        }
+        else {
+          j++; /* vai avanti nella ricerca */
+        }
       }
-      if (indexes[j] > indexes[j + k]) {
+      if ((bool == true && !(indexes[j] > indexes[j + k])) || indexes[j] > indexes[j + k]) { /* se sono nella situazione in cui la parola i + 1 è più corta ed è coincidente con la prima parte della parola i, oppure se semplicemente ho trovato due lettere diverse tra le due parole e la parola i + 1 deve venire prima della parola i */
         indexes = switchElements(indexes,l,l + k,l + k + lengths[i + 1] - 1);
         letters = switchElements(letters,l,l + k,l + k + lengths[i + 1] - 1);
         lengths = switchElements(lengths,i,i + 1,i + 1);
@@ -104,6 +114,18 @@ function switchElements(array,start,change,end) {
   
 // test
 
-var words = ['patrocinio','patriarcato','patente','pattume','patrizio','patacareddu','vaccines','water','epistemiologico'];
-console.log(words);
-console.log(order(words));
+var parole = [];
+numeroParole = prompt('inserire numero delle parole che si intende ordinare');
+var i = 0;
+while (parseInt(numeroParole) != numeroParole) { /* controllo del'input */
+  alert('Valore non valido');
+  numeroParole = prompt('inserire numero delle parole che si intende ordinare');
+  i++;
+}
+var i = 0;
+while (i < numeroParole) {
+  parole[i] = prompt('inserire parola n. ' + (i + 1) + ' di ' + numeroParole);
+  i++;
+}
+console.log(parole);
+console.log(order(parole));
