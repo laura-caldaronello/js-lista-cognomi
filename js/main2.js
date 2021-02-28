@@ -1,4 +1,4 @@
-// ordine alfabetico di parole con lettere minuscole e senza accenti
+// ordine alfabetico di parole in cui non si fa distinzione tra maiuscole, minuscole e parole accentate, senza bisogno di alcuna funzione precostituita se non una da me creata e a sua volta "artigianale"
 function order(words) {
 
   // definizione alfabeto e relativi indici
@@ -95,6 +95,7 @@ function order(words) {
 
 // utilities
 
+// function che scambia le posizioni di due porzioni di un array
 // start: indice reale della prima lettera della prima parte;
 // change: indice reale della prima lettera della seconda parte;
 // end: indice reale dell'ultima lettera della seconda parte;
